@@ -22,7 +22,7 @@ const App = () => (
         <Switch>
           <Route exact path="/" component={Landing}></Route>
           <Route exact path="/login" component={Login}></Route>
-          <Route exact path="/Forms" component={Forms}></Route>
+          <Route exact path="/forms" component={Forms}></Route>
         </Switch>
       </Fragment>
     </Router>
