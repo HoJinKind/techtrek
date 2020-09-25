@@ -6,12 +6,14 @@ import Paper from "@material-ui/core/Paper";
 const CountdownTimer = () => {
   const onSubmit = async (e) => {};
   const expiry = localStorage.getItem("expiresIn");
+  var formatDate = new Date(expiry);
+  console.log(formatDate);
   return (
     <div className="container">
       <Paper variant="outlined">
         <div className="bg-light">
           <div>expires in: {expiry}</div>
-          <Button>Refresh</Button>
+          <Button>Extend Session</Button>
         </div>
       </Paper>
     </div>
