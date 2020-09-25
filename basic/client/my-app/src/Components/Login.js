@@ -15,6 +15,7 @@ const Login = (props) => {
     username: "",
     password: "",
   });
+
   const { username, password } = formData;
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,7 +23,6 @@ const Login = (props) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== "") {
-      console.log("123");
       console.log(formData);
     }
     const user = {
@@ -37,16 +37,20 @@ const Login = (props) => {
       };
       const body = JSON.stringify(user);
       const res = await axios.post(
-        "http://localhost:5000/api/users/login",
+        `${process.env.REACT_APP_API_URL}/login`,
         body,
         config
       );
       console.log(res);
       props.login({ username, password });
 
-      history.push("/home");
       if (res.data.ok) {
-        console.log("logged in");
+        localStorage.setItem("token", res.data.token);
+        history.push({
+          pathname: "/home",
+          login: true,
+          username: username.toLowerCase(),
+        });
         setShowError(false);
       } else {
         setShowError(true);

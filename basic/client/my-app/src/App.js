@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import Landing from "./Components/Landing";
+import Login from "./Components/Login";
 import Navbar from "./Components/Navbar";
 import { Switch } from "react-router-dom/cjs/react-router-dom.min";
 import Alert from "./Components/layout/Alert";
@@ -19,6 +20,7 @@ const App = () => (
         <Alert />
         <Switch>
           <Route exact path="/" component={Landing}></Route>
+          <Route exact path="/login" component={Login}></Route>
         </Switch>
       </Fragment>
     </Router>
