@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import { setAlert } from "../actions/alert";
 import { login } from "../actions/auth";
 import PropTypes from "prop-types";
-import Register from "./Register";
 import { useHistory } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import moment from "moment";
 
 const Login = (props) => {
   const [showError, setShowError] = useState(false);
@@ -40,12 +41,16 @@ const Login = (props) => {
         'http://techtrek2020.ap-southeast-1.elasticbeanstalk.com/login',
         body,
         config
-      );
+      ).catch(err => {
+        window.alert('invalid login' + err)
+      });
       console.log(res);
-      //props.login({ username, password });
-
-      if (res.status == 200) {
+      if (res && res.status === 200) {
         localStorage.setItem("token", res.data);
+        var decoded = jwt_decode(res.data);
+        // var issuedTime = new Date( (decoded.iat * 1000));
+        // var expTime = new Date(decoded.exp * 1000);
+        localStorage.setItem("expiresIn", decoded.exp*1000);
         history.push({
           pathname: "/home",
           login: true,
@@ -54,6 +59,7 @@ const Login = (props) => {
         setShowError(false);
       } else {
         setShowError(true);
+      
       }
     } catch (err) {
       console.error(err);
@@ -95,18 +101,15 @@ const Login = (props) => {
           </div>
           <input type="submit" className="btn btn-primary" value="Login" />
         </form>
-        <p className="my-1">
-          Don't have an account? <a href="register.html">Sign Up</a>
-        </p>
       </section>
     </Fragment>
   );
 };
 
-Login.propTypes = {
-  setAlert: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
-};
+// Login.propTypes = {
+//   setAlert: PropTypes.func.isRequired,
+//   register: PropTypes.func.isRequired,
+// };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
