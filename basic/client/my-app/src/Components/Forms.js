@@ -26,10 +26,10 @@ const Forms = (props) => {
         const formBranchCode = form.elements.formBranchCode.value;
         const isValidBranchCode = formBranchCode ==  parseInt(DBSBranchCode);
         const formUploadedFile = form.elements.formUploadedFile.value;
-        const isValidFileSize = ValidFileSize(formUploadedFile);
+        const isValidFileSize = validFileSize(formUploadedFile);
         const formProductType = form.elements.formProductType.value;
 
-        const ValidFileSize = (fi) => { 
+        const validFileSize = (fi) => { 
             // Check if any file is selected. 
             if (fi.files.length > 0) { 
                 for (const i = 0; i <= fi.files.length - 1; i++) { 
@@ -37,13 +37,14 @@ const Forms = (props) => {
                     const file = Math.round((fsize / 1024)); 
                     // The size of the file. 
                     if (file > 2048) { 
-                        return True
+                        return true;
                         // alert("File too small, please select a file greater than 2mb"); 
                     }else{
-                        return False
+                        return false;
                     }
                 } 
             } 
+        }
 
         const isValid = form.checkValidity() && isValidName && isValidAge && isValidServiceOfficerName && isValidNric;
         if (!isValid) {
@@ -52,7 +53,7 @@ const Forms = (props) => {
             if (!isValidAge) errorsObj.formCustomerAge = `Must be at least 18 years old.`;
             if (!isValidServiceOfficerName) errorsObj.formServiceOfficerName = `Service Officer Name must not exceed 64 characters.`;
             if (!isValidNric) errorsObj.formNric = `NRIC must be in uppercase and only have 7 numeric numbers.`;
-            if (!isValidRegistrationTime) errorsObj.formRegistrationTime = "Registration time must be provided in { DD/MM/YYYY HH:mm:ss } format.";
+            // if (!isValidRegistrationTime) errorsObj.formRegistrationTime = "Registration time must be provided in { DD/MM/YYYY HH:mm:ss } format.";
             if (!isValidBranchCode) errorsObj.formValidBranchCode = "Branch Code should be a valid DBS branch code.";
             if (!isValidFileSize) errorsObj.formValidFileSize = "File attached should not exceed 2 megabytes"
             console.log(errorsObj)
