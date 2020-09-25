@@ -40,10 +40,10 @@ const Login = (props) => {
         'http://techtrek2020.ap-southeast-1.elasticbeanstalk.com/login',
         body,
         config
-      );
+      ).catch(err => {
+        window.alert('invalid login' + err)
+      });
       console.log(res);
-      //props.login({ username, password });
-
       if (res.status == 200) {
         localStorage.setItem("token", res.data);
         history.push({
@@ -54,6 +54,7 @@ const Login = (props) => {
         setShowError(false);
       } else {
         setShowError(true);
+      
       }
     } catch (err) {
       console.error(err);
