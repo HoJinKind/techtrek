@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import CountdownTimer from "./CountdownTimer";
+import axios from "axios";
 
 const CSS_CLASSES = {
     "invalid": { fontSize: "12px", color: "red" }
@@ -12,7 +13,7 @@ const Forms = (props) => {
     const [errors, setErrors] = useState(false);
     const [file, setFile] = useState(false);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         event.stopPropagation();
 
@@ -53,8 +54,15 @@ const Forms = (props) => {
         const formBranchCode = form.elements.formBranchCode.value;
         /* TODO */
         
-        const formObject = { customerName: formCustomerName, customerAge: formCustomerAge, serviceOfficerName: formServiceOfficerName, NRIC: formNric, image: file[0] }
+        const formObject = { customerName: formCustomerName, customerAge: formCustomerAge, serviceOfficerName: formServiceOfficerName, NRIC: formNric, image: file[0], registrationTime: "11/09/2020 11:11:11", productType: ["555"], branchCode: 890 }
         console.log(formObject)
+        const jwtToken = localStorage.getItem("token");
+        const response = await axios.post(`http://techtrek2020.ap-southeast-1.elasticbeanstalk.com/validateForm`, 
+            formObject, 
+            { headers: jwtToken && { Authorization: `Bearer ${jwtToken}` }})
+            .then((res) => (res.status === 200) ? true : false)
+            .catch((err) => console.log(err));
+        console.log(response);
     }
 
     return (
