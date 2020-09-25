@@ -1,13 +1,24 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, useState} from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form';
 
 const Forms = (props) => {
+    const [validated, setValidated] = useState(false);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const form = event.currentTarget;
+        const emailAddress = form.elements.formBasicEmail.value;
+        console.log(emailAddress)
+
+    }
 
     return (
         <Fragment>
             <section className="container">
-                <Form>
+                <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" />
@@ -22,6 +33,14 @@ const Forms = (props) => {
                     </Form.Group>
                     <Form.Group controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="Check me out" />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.File label="Upload Logo" custom>
+                            <Form.File.Input />
+                            <Form.File.Label data-browse="Submit">
+                                Upload Logo
+                            </Form.File.Label>
+                        </Form.File>
                     </Form.Group>
                     <Button variant="primary" type="submit">
                         Submit
