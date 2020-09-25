@@ -37,15 +37,15 @@ const Login = (props) => {
       };
       const body = JSON.stringify(user);
       const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}/login`,
+        'http://techtrek2020.ap-southeast-1.elasticbeanstalk.com/login',
         body,
         config
       );
       console.log(res);
-      props.login({ username, password });
+      //props.login({ username, password });
 
-      if (res.data.ok) {
-        localStorage.setItem("token", res.data.token);
+      if (res.status == 200) {
+        localStorage.setItem("token", res.data);
         history.push({
           pathname: "/home",
           login: true,
