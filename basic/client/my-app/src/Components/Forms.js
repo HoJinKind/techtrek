@@ -12,7 +12,6 @@ const Forms = (props) => {
         const form = event.currentTarget;
         const emailAddress = form.elements.formBasicEmail.value;
         console.log(emailAddress)
-
     }
 
     return (
@@ -27,7 +26,7 @@ const Forms = (props) => {
 
                     <Form.Group controlId="formCustomerAge">
                         <Form.Label>Customer Age</Form.Label>
-                        <Form.Control type="text" placeholder="Customer Name" />
+                        <Form.Control type="text" placeholder="Customer Age" />
                     </Form.Group>
 
                     <Form.Group controlId="formServiceOfficerName">
@@ -36,18 +35,36 @@ const Forms = (props) => {
                     </Form.Group>
 
                     <Form.Group controlId="formNric">
-                        <Form.Label>Service Officer Name</Form.Label>
+                        <Form.Label>NRIC</Form.Label>
                         <Form.Control type="text" placeholder="NRIC" />
                     </Form.Group>
 
-                    <Form.Group controlId="formNric">
-                        <Form.Label>NRIC</Form.Label>
-                        <Form.Control type="password" placeholder="NRIC" />
+                    <Form.Group controlId="formRegistrationTime">
+                        <Form.Label>Registration Time</Form.Label>
+                        <Form.Control type="text" placeholder="Registration Time" />
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="Check me out" />
+                    <Form.Group controlId="formBranchCode">
+                        <Form.Label>Branch Code</Form.Label>
+                        <Form.Control type="text" placeholder="Branch Code" />
                     </Form.Group>
+
+                    <Form.Group>
+                        <Form.File id="exampleFormControlFile1" label="Upload Image" />
+                    </Form.Group>
+
+                    <Form.Group controlId="exampleForm.SelectCustom">
+                        <Form.Label>Product Type</Form.Label>
+                        <Form.Control as="select" custom>
+                        <option>Select</option>
+                        <option>137 : Investor</option>
+                        <option>070 : Insurance</option>
+                        <option>291 : Loans</option>
+                        <option>969 : Savings</option>
+                        <option>555 : Credit Cards</option>
+                        </Form.Control>
+                    </Form.Group>
+
                     <Button variant="primary" type="submit">
                         Submit
                     </Button>
