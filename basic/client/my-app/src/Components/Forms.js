@@ -81,7 +81,7 @@ const Forms = (props) => {
             return;
         }
         
-        const blob = new Blob([file[0]], {type: file[0].type });
+        const blob = (file) ? new Blob([file[0]], {type: file[0].type }) : "";
         console.log(blob)
         const formObject = { customerName: formCustomerName, customerAge: formCustomerAge, serviceOfficerName: formServiceOfficerName, NRIC: formNric, image: blob, registrationTime: parsedDateTime, productType: [formProductType], branchCode: 890 }
         console.log(formObject)
