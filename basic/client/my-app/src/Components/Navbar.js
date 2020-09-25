@@ -10,11 +10,19 @@ const Navbar = () => (
       </Link>
     </h1>
     <ul>
-      <li>
-        <Link Link to="./login">
-          Login
-        </Link>
-      </li>
+      {true ? (
+        <li>
+          <Link Link to="./login">
+            Login
+          </Link>
+        </li>
+      ) : (
+        <li>
+          <Link Link to="./login">
+            Logout
+          </Link>
+        </li>
+      )}
     </ul>
   </nav>
 );

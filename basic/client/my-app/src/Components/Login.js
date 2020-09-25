@@ -52,7 +52,7 @@ const Login = (props) => {
         // var expTime = new Date(decoded.exp * 1000);
         localStorage.setItem("expiresIn", decoded.exp*1000);
         history.push({
-          pathname: "/home",
+          pathname: "/forms",
           login: true,
           username: username.toLowerCase(),
         });

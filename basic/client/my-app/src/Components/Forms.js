@@ -1,6 +1,12 @@
-import React, {Fragment, useState} from 'react'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form';
+import React, { Fragment, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import CountdownTimer from "./CountdownTimer";
+import axios from "axios";
+
+const CSS_CLASSES = {
+    "invalid": { fontSize: "12px", color: "red" }
+}
 
 const Forms = (props) => {
     const [validated, setValidated] = useState(false);
@@ -8,17 +14,20 @@ const Forms = (props) => {
     const [file, setFile] = useState(false);
     const DBSBranchCode = "081"
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         event.stopPropagation();
 
         const form = event.currentTarget;
         const formCustomerName = form.elements.formCustomerName.value;
-        const isValidName = formCustomerName.length < 64;
+        const isValidName = formCustomerName.length < 64 && formCustomerName.length > 0;
+        // Validate customer age is above 18
         const formCustomerAge = parseInt(form.elements.formCustomerAge.value);
         const isValidAge = formCustomerAge >= 18;
+        // Validate service officer name length is not more than 64 characters
         const formServiceOfficerName = form.elements.formServiceOfficerName.value;
-        const isValidServiceOfficerName = formServiceOfficerName.length < 64;
+        const isValidServiceOfficerName = formServiceOfficerName.length < 64 && formServiceOfficerName.length > 0;
+        // check NRIC format
         const formNric = form.elements.formNric.value;
         const nricRegex = new RegExp('[A-Z][0-9]{7}[A-Z]');
         const isValidNric = nricRegex.test(formNric);
@@ -46,48 +55,74 @@ const Forms = (props) => {
             } 
         }
 
-        const isValid = form.checkValidity() && isValidName && isValidAge && isValidServiceOfficerName && isValidNric;
+        const isValid = form.checkValidity() && isValidName && isValidAge && isValidServiceOfficerName && isValidNric && isValidFile;
         if (!isValid) {
             const errorsObj = {};
-            if (!isValidName) errorsObj.formCustomerName = `Name cannot be more than 64 characters.`;
-            if (!isValidAge) errorsObj.formCustomerAge = `Must be at least 18 years old.`;
+            if (!isValidName) errorsObj.formCustomerName = `Customer Name must not exceed 64 characters.`;
+            if (!isValidAge) errorsObj.formCustomerAge = `Customers must be at least 18 years of age.`;
             if (!isValidServiceOfficerName) errorsObj.formServiceOfficerName = `Service Officer Name must not exceed 64 characters.`;
             if (!isValidNric) errorsObj.formNric = `NRIC must be in uppercase and only have 7 numeric numbers.`;
             // if (!isValidRegistrationTime) errorsObj.formRegistrationTime = "Registration time must be provided in { DD/MM/YYYY HH:mm:ss } format.";
             if (!isValidBranchCode) errorsObj.formValidBranchCode = "Branch Code should be a valid DBS branch code.";
             if (!isValidFileSize) errorsObj.formValidFileSize = "File attached should not exceed 2 megabytes"
+            if (!isValidFile) errorsObj.exampleFormControlFile1 = `Please enter an image with a valid extension (JPG, PNG, GIF, SVG, TIFF, ICO, DVU).`;
             console.log(errorsObj)
             setErrors(errorsObj);
             return;
         }
+
+        /* TODO */
+        const formRegistrationTime = form.elements.formRegistrationTime.value;
+        const formBranchCode = form.elements.formBranchCode.value;
+        /* TODO */
         
         const formObject = { customerName: formCustomerName, customerAge: formCustomerAge, serviceOfficerName: formServiceOfficerName, NRIC: formNric, image: file, productType: [formProductType]}
         console.log(formObject)
+        const jwtToken = localStorage.getItem("token");
+        const response = await axios.post(`http://techtrek2020.ap-southeast-1.elasticbeanstalk.com/validateForm`, 
+            formObject, 
+            { headers: jwtToken && { Authorization: `Bearer ${jwtToken}` }})
+            .then((res) => (res.status === 200) ? true : false)
+            .catch((err) => console.log(err));
+        console.log(response);
     }
 
     return (
         <Fragment>
             <section className="container">
+                <CountdownTimer></CountdownTimer>
                 <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     
                     <Form.Group controlId="formCustomerName">
                         <Form.Label>Customer Name</Form.Label>
-                        <Form.Control type="text" placeholder="Customer Name" />
+                        <Form.Control type="text" placeholder="Customer Name" required/>
+                        <Form.Control.Feedback type="invalid" style={CSS_CLASSES.invalid}>
+                            {errors.formCustomerName}
+                        </Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group controlId="formCustomerAge">
                         <Form.Label>Customer Age</Form.Label>
                         <Form.Control type="text" placeholder="Customer Age" />
+                        <Form.Control.Feedback type="invalid" style={CSS_CLASSES.invalid}>
+                            {errors.formCustomerAge}
+                        </Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group controlId="formServiceOfficerName">
                         <Form.Label>Service Officer Name</Form.Label>
                         <Form.Control type="text" placeholder="Service Officer Name" />
+                        <Form.Control.Feedback type="invalid" style={CSS_CLASSES.invalid}>
+                            {errors.formServiceOfficerName}
+                        </Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group controlId="formNric">
                         <Form.Label>NRIC</Form.Label>
                         <Form.Control type="text" placeholder="NRIC" />
+                        <Form.Control.Feedback type="invalid" style={CSS_CLASSES.invalid}>
+                            {errors.formNric}
+                        </Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group controlId="formRegistrationTime">
@@ -99,7 +134,6 @@ const Forms = (props) => {
                         <Form.Label>Branch Code</Form.Label>
                         <Form.Control type="text" placeholder="Branch Code" />
                     </Form.Group>
-
                     <Form.Group>
                         <Form.File id="formUploadedFile" label="Upload Image" />
                     </Form.Group>
