@@ -39,7 +39,6 @@ const Forms = (props) => {
         const isValidFile = (file[0]) ? validFileExtensions.includes(file[0].name.split('.').pop().toLowerCase()) : true;
         // check date
         const formRegistrationDate = form.elements.formRegistrationDate.value;
-        const isValidDate = formRegistrationDate !== '';
         const parsedDateString = new Date(formRegistrationDate).toLocaleDateString();
         const formRegistrationTimeString = form.elements.formRegistrationTimeString.value;
         const parsedDateTime = `${parsedDateString} ${formRegistrationTimeString}`;
@@ -65,6 +64,7 @@ const Forms = (props) => {
         }
 
         const isValid = isValidName && isValidAge && isValidServiceOfficerName && isValidNric && isValidFile;
+        
         if (!isValid) {
             const errorsObj = {};
             if (!isValidName) errorsObj.formCustomerName = `Customer Name must not exceed 64 characters.`;
@@ -75,7 +75,6 @@ const Forms = (props) => {
             if (!isValidBranchCode) errorsObj.formValidBranchCode = "Branch Code should be a valid DBS branch code.";
             //if (!isValidFileSize) errorsObj.formValidFileSize = "File attached should not exceed 2 megabytes"
             if (!isValidFile) errorsObj.exampleFormControlFile1 = `Please enter an image with a valid extension (JPG, PNG, GIF, SVG, TIFF, ICO, DVU).`;
-            if (!isValidDate) errorsObj.formRegistrationDate = `Please key in a valid date.`
             console.log(errorsObj)
             setErrors(errorsObj);
             return;
