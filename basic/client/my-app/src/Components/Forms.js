@@ -32,7 +32,7 @@ const Forms = (props) => {
         const formNric = form.elements.formNric.value;
         const nricRegex = new RegExp('[A-Z][0-9]{7}[A-Z]');
         const isValidNric = nricRegex.test(formNric);
-        // const formRegistrationTime = form.elements.formRegistrationTime.value;
+        const formRegistrationTime = form.elements.formRegistrationTime.value;
         const formBranchCode = form.elements.formBranchCode.value;
         const isValidBranchCode = formBranchCode ==  parseInt(DBSBranchCode);
         const formUploadedFile = form.elements.formUploadedFile.value;
@@ -56,7 +56,7 @@ const Forms = (props) => {
             } 
         }
 
-        const isValid = form.checkValidity() && isValidName && isValidAge && isValidServiceOfficerName && isValidNric && isValidFile;
+        const isValid = form.checkValidity() && isValidName && isValidAge && isValidServiceOfficerName && isValidNric // && isValidFile;
         if (!isValid) {
             const errorsObj = {};
             if (!isValidName) errorsObj.formCustomerName = `Customer Name must not exceed 64 characters.`;
@@ -66,7 +66,7 @@ const Forms = (props) => {
             // if (!isValidRegistrationTime) errorsObj.formRegistrationTime = "Registration time must be provided in { DD/MM/YYYY HH:mm:ss } format.";
             if (!isValidBranchCode) errorsObj.formValidBranchCode = "Branch Code should be a valid DBS branch code.";
             if (!isValidFileSize) errorsObj.formValidFileSize = "File attached should not exceed 2 megabytes"
-            if (!isValidFile) errorsObj.exampleFormControlFile1 = `Please enter an image with a valid extension (JPG, PNG, GIF, SVG, TIFF, ICO, DVU).`;
+            // if (!isValidFile) errorsObj.exampleFormControlFile1 = `Please enter an image with a valid extension (JPG, PNG, GIF, SVG, TIFF, ICO, DVU).`;
             console.log(errorsObj)
             setErrors(errorsObj);
             return;
@@ -130,15 +130,9 @@ const Forms = (props) => {
                         <Form.Label>Branch Code</Form.Label>
                         <Form.Control type="text" placeholder="Branch Code" />
                     </Form.Group>
-
-                    <ImageUploader
-                        id = "formUploadedFile"
-                        withIcon={true}
-                        buttonText='Choose images'
-                        onChange={this.onDrop}
-                        imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                        maxFileSize={2048}
-                    />
+                    <Form.Group>
+                        <Form.File id="formUploadedFile" label="Upload Image" />
+                    </Form.Group>
 
                     <Form.Group controlId="formProductType">
                         <Form.Label>Product Type</Form.Label>
