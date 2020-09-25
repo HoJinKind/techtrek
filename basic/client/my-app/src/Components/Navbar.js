@@ -6,7 +6,7 @@ const Navbar = () => (
   <nav className="navbar bg-dark">
     <h1>
       <Link Link to="/">
-        <i className="fas fa-code"></i> DBS Onboarding
+        <i className="fas fa-code"></i> DBS Customer Onboarding
       </Link>
     </h1>
     <ul>
