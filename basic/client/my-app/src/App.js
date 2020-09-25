@@ -10,6 +10,7 @@ import Alert from "./Components/layout/Alert";
 import { Provider } from "react-redux";
 import store from "./store";
 import createHistory from "history/createBrowserHistory";
+import Forms from "./Components/Forms";
 export const history = createHistory();
 
 const App = () => (
@@ -21,6 +22,7 @@ const App = () => (
         <Switch>
           <Route exact path="/" component={Landing}></Route>
           <Route exact path="/login" component={Login}></Route>
+          <Route exact path="/Forms" component={Forms}></Route>
         </Switch>
       </Fragment>
     </Router>
