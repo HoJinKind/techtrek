@@ -60,6 +60,7 @@ const Forms = (props) => {
     return (
         <Fragment>
             <section className="container">
+                <CountdownTimer></CountdownTimer>
                 <Form noValidate validated={validated} onSubmit={handleSubmit}>
 
                     <Form.Group controlId="formCustomerName">
