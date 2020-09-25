@@ -64,7 +64,7 @@ const Forms = (props) => {
         }
 
         const isValid = isValidName && isValidAge && isValidServiceOfficerName && isValidNric && isValidFile;
-        
+
         if (!isValid) {
             const errorsObj = {};
             if (!isValidName) errorsObj.formCustomerName = `Customer Name must not exceed 64 characters.`;
@@ -73,7 +73,6 @@ const Forms = (props) => {
             if (!isValidNric) errorsObj.formNric = `NRIC must be in uppercase and only have 7 numeric numbers.`;
             // if (!isValidRegistrationTime) errorsObj.formRegistrationTime = "Registration time must be provided in { DD/MM/YYYY HH:mm:ss } format.";
             if (!isValidBranchCode) errorsObj.formValidBranchCode = "Branch Code should be a valid DBS branch code.";
-            //if (!isValidFileSize) errorsObj.formValidFileSize = "File attached should not exceed 2 megabytes"
             if (!isValidFile) errorsObj.exampleFormControlFile1 = `Please enter an image with a valid extension (JPG, PNG, GIF, SVG, TIFF, ICO, DVU).`;
             console.log(errorsObj)
             setErrors(errorsObj);
@@ -155,7 +154,7 @@ const Forms = (props) => {
                             {errors.exampleFormControlFile1}
                         </Form.Control.Feedback>
                     </Form.Group>
-
+                    
                     <Form.Group controlId="formProductType">
                         <Form.Label>Product Type</Form.Label>
                         <Form.Control as="select" custom>
