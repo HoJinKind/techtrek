@@ -1,0 +1,21 @@
+ docker build -t sample:dev1 . 
+
+ (if new libraries added to package json, shld be need to build again)
+
+ can also build with docker compose
+
+ docker-compose up -d --build
+
+ yarn init
+ yarn install
+
+
+
+
+setting up backend:
+brew install yarn
+yarn global add express-generator
+yarn init
+yarn install
+
+docker run   -v ${PWD}:/app   -p 3001:3000    -e CHOKIDAR_USEPOLLING=true -d --name exp imageexpress:latest 

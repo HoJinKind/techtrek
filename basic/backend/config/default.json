@@ -1,0 +1,8 @@
+{
+  "development":{
+    "postgresURI": "eg4-prod4-app4.cxyok6abwur6.ap-southeast-1.rds.amazonaws.com",
+    "databaseName":  "wordpress1",
+    "databaseUsername": "admin1",
+    "databasePassword": "qwerty123"
+  }
+}
