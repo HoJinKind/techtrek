@@ -32,7 +32,7 @@ const Forms = (props) => {
         const formNric = form.elements.formNric.value;
         const nricRegex = new RegExp('[A-Z][0-9]{7}[A-Z]');
         const isValidNric = nricRegex.test(formNric);
-        // const formRegistrationTime = form.elements.formRegistrationTime.value;
+        const formRegistrationTime = form.elements.formRegistrationTime.value;
         const formBranchCode = form.elements.formBranchCode.value;
         const isValidBranchCode = formBranchCode ==  parseInt(DBSBranchCode);
         const formUploadedFile = form.elements.formUploadedFile.value;
@@ -130,15 +130,9 @@ const Forms = (props) => {
                         <Form.Label>Branch Code</Form.Label>
                         <Form.Control type="text" placeholder="Branch Code" />
                     </Form.Group>
-
-                    <ImageUploader
-                        id = "formUploadedFile"
-                        withIcon={true}
-                        buttonText='Choose images'
-                        onChange={this.onDrop}
-                        imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                        maxFileSize={2048}
-                    />
+                    <Form.Group>
+                        <Form.File id="formUploadedFile" label="Upload Image" />
+                    </Form.Group>
 
                     <Form.Group controlId="formProductType">
                         <Form.Label>Product Type</Form.Label>
