@@ -26,7 +26,7 @@ const Forms = (props) => {
         const isValidAge = formCustomerAge >= 18;
         // Validate service officer name length is not more than 64 characters
         const formServiceOfficerName = form.elements.formServiceOfficerName.value;
-        const isValidServiceOfficerName = formServiceOfficerName.length < 64 && formCustomerName.length > 0;
+        const isValidServiceOfficerName = formServiceOfficerName.length < 64 && formServiceOfficerName.length > 0;
         // check NRIC format
         const formNric = form.elements.formNric.value;
         const nricRegex = new RegExp('[A-Z][0-9]{7}[A-Z]');
