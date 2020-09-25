@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  frontend:
+    image: jinkindho/dockerfiletemplates_reactfe:latest
+    ports:
+      - "80:80"
+  backend:
+    image: jinkindho/dockerfiletemplates_expressbe:latest
+    ports:
+      - "5000:5000"

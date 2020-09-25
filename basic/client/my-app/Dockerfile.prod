@@ -1,24 +1,14 @@
-# pull official base image
-FROM node:13.12.0-alpine as builder
 
-EXPOSE 3000
+
+FROM node:13.12.0-alpine as builder
+EXPOSE 80
 # set working directory
 WORKDIR /app
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
-
-# install app dependencies
-COPY package.json ./
-COPY yarn.lock ./
-RUN yarn install
-RUN yarn global add react-scripts@3.4.1
-
-COPY . ./
+COPY ./build /build
 # start app
-RUN yarn build
 # add ap
-
-FROM nginx:latest
 EXPOSE 80
-COPY --from=builder /app/build /usr/share/nginx/html
+FROM nginx:latest 
+
+COPY  --from=builder  /build /usr/share/nginx/html

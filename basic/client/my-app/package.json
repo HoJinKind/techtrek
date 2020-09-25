@@ -35,7 +35,7 @@
     "dev": "parcel index.html",
     "start": "env-cmd -f .env.development react-scripts start",
     "start:prod": "env-cmd -f .env.production react-scripts start",
-    "build": "env-cmd -f .env.production react-scripts build",
+    "build": "env-cmd -f .env.development react-scripts build",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
     "format": "prettier \"src/**/*.{js,html}\" --write",
     "test": "react-scripts test",
