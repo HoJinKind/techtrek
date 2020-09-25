@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { setAlert } from "../actions/alert";
 import { login } from "../actions/auth";
 import PropTypes from "prop-types";
-import Register from "./Register";
 import { useHistory } from "react-router-dom";
 
 const Login = (props) => {
@@ -44,7 +43,7 @@ const Login = (props) => {
         window.alert('invalid login' + err)
       });
       console.log(res);
-      if (res.status == 200) {
+      if (res && res.status === 200) {
         localStorage.setItem("token", res.data);
         history.push({
           pathname: "/home",
@@ -96,18 +95,15 @@ const Login = (props) => {
           </div>
           <input type="submit" className="btn btn-primary" value="Login" />
         </form>
-        <p className="my-1">
-          Don't have an account? <a href="register.html">Sign Up</a>
-        </p>
       </section>
     </Fragment>
   );
 };
 
-Login.propTypes = {
-  setAlert: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
-};
+// Login.propTypes = {
+//   setAlert: PropTypes.func.isRequired,
+//   register: PropTypes.func.isRequired,
+// };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,

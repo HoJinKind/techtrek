@@ -6,20 +6,10 @@ const Navbar = () => (
   <nav className="navbar bg-dark">
     <h1>
       <Link Link to="/">
-        <i className="fas fa-code"></i> React Template
+        <i className="fas fa-code"></i> DBS Onboarding
       </Link>
     </h1>
     <ul>
-      <li>
-        <Link Link to="./">
-          Search
-        </Link>
-      </li>
-      <li>
-        <Link Link to="./register">
-          Register
-        </Link>
-      </li>
       <li>
         <Link Link to="./login">
           Login
